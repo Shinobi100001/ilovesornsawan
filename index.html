@@ -115,34 +115,35 @@
 <footer class="container-fluid bg-4 text-center">
   <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
   
-  <div class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="YzpYXox" data-pen-title="Happy Birthday JavaScript!" data-user="Shokeen"  data-prefill='{"title":"Happy Birthday JavaScript!","description":"A birthday card to JavaScript!\n\nBuilt live: https://youtu.be/KHOAr2o3sKk?t=100\n\nHeavily inspired by: https://dribbble.com/shots/11491933-Happy-Birthday-to-Me\n\nUsing: \n\nMo.js: https://mojs.github.io/\nSplitting.js: https://splitting.js.org/","tags":["javascript","animations","presents","birthday","hover"],"scripts":["https://cdn.jsdelivr.net/mojs/0.288.1/mo.min.js","https://cdn.jsdelivr.net/mojs-player/0.43.15/mojs-player.min.js","https://unpkg.com/splitting/dist/splitting.min.js"],"stylesheets":["https://unpkg.com/splitting/dist/splitting.css","https://unpkg.com/splitting/dist/splitting-cells.css"]}'>
-  <pre data-lang="pug">.container
-  .text(data-splitting='') Happy Birthday!
-  .presents
-    .present.orange
-      .lid
-      .box
-      .bow
-      .ribbon
-    .present.blue
-      .lid
-      .box
-      .bow
-      .ribbon
-    .present.green
-      .lid
-      .box
-      .bow
-      .ribbon</pre>
-  <pre data-lang="scss" data-option-autoprefixer="true">@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+  
+<div class="container">
+  <div class="text" data-splitting="">Happy Birthday!</div>
+  <div class="presents">
+    <div class="present orange">
+      <div class="lid"></div>
+      <div class="box"></div>
+      <div class="bow"></div>
+      <div class="ribbon"></div>
+    </div>
+    <div class="present blue">
+      <div class="lid"></div>
+      <div class="box"></div>
+      <div class="bow"></div>
+      <div class="ribbon"></div>
+    </div>
+    <div class="present green">
+      <div class="lid"></div>
+      <div class="box"></div>
+      <div class="bow"></div>
+      <div class="ribbon"></div>
+    </div>
+  </div>
+</div>
 
-$border-color: #2C3A49;
-$border: 4px solid $border-color;
-$border-radius: 5px;
-
+  @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
 body {
   background: #34E1FF;
-  font-family: 'Ranchers';
+  font-family: "Ranchers";
   overflow-x: hidden;
 }
 
@@ -157,13 +158,22 @@ body {
   min-width: 100%;
   text-align: center;
   color: white;
-  text-shadow: 1px 1px $border-color;
+  text-shadow: 1px 1px #2C3A49;
   font-size: 3em;
 }
 
 .text .char {
-  animation: slide-in 1s cubic-bezier(.5, 0, .5, 1) both;
-  animation-delay: calc(60ms * var(--char-index));
+  -webkit-animation: slide-in 1s cubic-bezier(0.5, 0, 0.5, 1) both;
+          animation: slide-in 1s cubic-bezier(0.5, 0, 0.5, 1) both;
+  -webkit-animation-delay: calc(60ms * var(--char-index));
+          animation-delay: calc(60ms * var(--char-index));
+}
+
+@-webkit-keyframes slide-in {
+  from {
+    transform: translateY(-1em) rotate(-150turn) scale(0.5);
+    opacity: 0;
+  }
 }
 
 @keyframes slide-in {
@@ -172,7 +182,6 @@ body {
     opacity: 0;
   }
 }
-
 .presents {
   display: flex;
   justify-content: center;
@@ -180,68 +189,205 @@ body {
   height: 200px;
 }
 
-@mixin present($name, $positionx, $box-color, $bow-color, $dot-color, $width, $height, $z-index) {
+.green {
   position: relative;
-  left: $positionx;
-  width: $width;
-  height: $height;
-  z-index: $z-index;
-  
-  &:hover {
-    animation: .5s #{$name};
+  left: -20px;
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+}
+.green:hover {
+  -webkit-animation: 0.5s green;
+          animation: 0.5s green;
+}
+.green .lid {
+  background: #3DDC81;
+}
+.green .box {
+  background-image: radial-gradient(#fff 20%, transparent 20%), radial-gradient(#fff 20%, transparent 20%);
+  background-color: #3DDC81;
+}
+.green .ribbon {
+  background: #F75D4C;
+}
+.green .ribbon::before {
+  top: 21%;
+}
+.green .bow {
+  background: #F75D4C;
+}
+.green .bow::before, .green .bow::after {
+  background: #F75D4C;
+}
+@-webkit-keyframes green {
+  0% {
+    width: 100px;
+    height: 100px;
   }
-
-  .lid {
-    background: $box-color;
+  30% {
+    width: calc(100px + 10px);
+    height: calc(100px - 10px);
   }
-  .box {
-    background-image: radial-gradient($dot-color 20%, transparent 20%),
-      radial-gradient($dot-color 20%, transparent 20%);
-    background-color: $box-color;
+  60% {
+    width: calc(100px - 10px);
+    height: calc(100px + 10px);
   }
-  .ribbon {
-    background: $bow-color;
-    &::before {
-      top: 21%;
-    }
-  }
-  .bow {
-    background: $bow-color;
-    &::before, &::after {
-      background: $bow-color;
-    }
-  }
-  
-  @keyframes #{$name} {
-    0% {
-      width: $width;
-      height: $height;
-    }
-    30% {
-      width: calc(#{$width} + 10px);
-      height: calc(#{$height} - 10px);
-    }
-    60% {
-      width: calc(#{$width} - 10px);
-      height: calc(#{$height} + 10px);
-    }
-    100% {
-      width: $width;
-      height: $height;
-    }
+  100% {
+    width: 100px;
+    height: 100px;
   }
 }
-
-.green {
-  @include present('green', -20px, #3DDC81, #F75D4C, #fff, 100px, 100px, 1);
+@keyframes green {
+  0% {
+    width: 100px;
+    height: 100px;
+  }
+  30% {
+    width: calc(100px + 10px);
+    height: calc(100px - 10px);
+  }
+  60% {
+    width: calc(100px - 10px);
+    height: calc(100px + 10px);
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 .orange {
-  @include present('orange', 20px, #FFA726, #F75D4C, $border-color, 130px, 120px, 10);
+  position: relative;
+  left: 20px;
+  width: 130px;
+  height: 120px;
+  z-index: 10;
+}
+.orange:hover {
+  -webkit-animation: 0.5s orange;
+          animation: 0.5s orange;
+}
+.orange .lid {
+  background: #FFA726;
+}
+.orange .box {
+  background-image: radial-gradient(#2C3A49 20%, transparent 20%), radial-gradient(#2C3A49 20%, transparent 20%);
+  background-color: #FFA726;
+}
+.orange .ribbon {
+  background: #F75D4C;
+}
+.orange .ribbon::before {
+  top: 21%;
+}
+.orange .bow {
+  background: #F75D4C;
+}
+.orange .bow::before, .orange .bow::after {
+  background: #F75D4C;
+}
+@-webkit-keyframes orange {
+  0% {
+    width: 130px;
+    height: 120px;
+  }
+  30% {
+    width: calc(130px + 10px);
+    height: calc(120px - 10px);
+  }
+  60% {
+    width: calc(130px - 10px);
+    height: calc(120px + 10px);
+  }
+  100% {
+    width: 130px;
+    height: 120px;
+  }
+}
+@keyframes orange {
+  0% {
+    width: 130px;
+    height: 120px;
+  }
+  30% {
+    width: calc(130px + 10px);
+    height: calc(120px - 10px);
+  }
+  60% {
+    width: calc(130px - 10px);
+    height: calc(120px + 10px);
+  }
+  100% {
+    width: 130px;
+    height: 120px;
+  }
 }
 
 .blue {
-    @include present('blue', 0, #1BB5FE, #3DDC81, transparent, 120px, 160px, 0);
+  position: relative;
+  left: 0;
+  width: 120px;
+  height: 160px;
+  z-index: 0;
+}
+.blue:hover {
+  -webkit-animation: 0.5s blue;
+          animation: 0.5s blue;
+}
+.blue .lid {
+  background: #1BB5FE;
+}
+.blue .box {
+  background-image: radial-gradient(transparent 20%, transparent 20%), radial-gradient(transparent 20%, transparent 20%);
+  background-color: #1BB5FE;
+}
+.blue .ribbon {
+  background: #3DDC81;
+}
+.blue .ribbon::before {
+  top: 21%;
+}
+.blue .bow {
+  background: #3DDC81;
+}
+.blue .bow::before, .blue .bow::after {
+  background: #3DDC81;
+}
+@-webkit-keyframes blue {
+  0% {
+    width: 120px;
+    height: 160px;
+  }
+  30% {
+    width: calc(120px + 10px);
+    height: calc(160px - 10px);
+  }
+  60% {
+    width: calc(120px - 10px);
+    height: calc(160px + 10px);
+  }
+  100% {
+    width: 120px;
+    height: 160px;
+  }
+}
+@keyframes blue {
+  0% {
+    width: 120px;
+    height: 160px;
+  }
+  30% {
+    width: calc(120px + 10px);
+    height: calc(160px - 10px);
+  }
+  60% {
+    width: calc(120px - 10px);
+    height: calc(160px + 10px);
+  }
+  100% {
+    width: 120px;
+    height: 160px;
+  }
 }
 
 .present {
@@ -250,71 +396,71 @@ body {
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  .lid {
-    height: 20%;
-    width: calc(100% + 10px);
-    border: $border;
-    border-radius: $border-radius;
-    box-shadow: inset 2px 2px rgba(255,255,255,.5), 5px 0 rgba(0,0,0,.15);
-  }
-  .box {
-    width: 100%;
-    height: 100%;
+}
+.present .lid {
+  height: 20%;
+  width: calc(100% + 10px);
+  border: 4px solid #2C3A49;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.5), 5px 0 rgba(0, 0, 0, 0.15);
+}
+.present .box {
+  width: 100%;
+  height: 100%;
   background-position: 0 0, 20px 20px;
   background-size: 40px 40px;
-    border: $border;
-    border-top: 0;
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
-    box-shadow: inset -10px 5px rgba(0,0,0,.3), 5px 0 rgba(0,0,0,.15);
-  }
-  .ribbon {
-    position: absolute;
-    top: -3px;
-    width: 30px;
-    height: calc(100% - 5px);
-    border: $border;
-    border-radius: $border-radius;
-    box-shadow: inset 2px 2px rgba(255,255,255,.5);
-    &::before {
-      display: block;
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 5px;
-      background: rgba(0,0,0,.3);
-    }
-  }
-  .bow {
-    position: absolute;
-    top: -20px;
-    width: 20px;
-    height: 20px;
-    border: $border;
-    border-radius: 50%;
-    box-shadow: inset 2px 2px rgba(255,255,255,.5), inset -2px -5px rgba(0,0,0,.3);
-    &::before, &::after {
-      display: block;
-      content: '';
-      position: absolute;
-      top: -10px;
-      width: 30px;
-      height: 30px;
-      border: $border;
-      border-radius: 50%;
-      box-shadow: inset 2px 2px rgba(255,255,255,.5), inset -2px -5px rgba(0,0,0,.3);
-      z-index: -1;
-    }
-    &::before {
-      left: 15px;
-    }
-    &::after {
-      right: 15px;
-    }
-  }
+  border: 4px solid #2C3A49;
+  border-top: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: inset -10px 5px rgba(0, 0, 0, 0.3), 5px 0 rgba(0, 0, 0, 0.15);
 }
-</pre>
-  <pre data-lang="babel">document.addEventListener("click", (event) => {
+.present .ribbon {
+  position: absolute;
+  top: -3px;
+  width: 30px;
+  height: calc(100% - 5px);
+  border: 4px solid #2C3A49;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.5);
+}
+.present .ribbon::before {
+  display: block;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.3);
+}
+.present .bow {
+  position: absolute;
+  top: -20px;
+  width: 20px;
+  height: 20px;
+  border: 4px solid #2C3A49;
+  border-radius: 50%;
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.5), inset -2px -5px rgba(0, 0, 0, 0.3);
+}
+.present .bow::before, .present .bow::after {
+  display: block;
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 30px;
+  height: 30px;
+  border: 4px solid #2C3A49;
+  border-radius: 50%;
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.5), inset -2px -5px rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+.present .bow::before {
+  left: 15px;
+}
+.present .bow::after {
+  right: 15px;
+}
+
+document.addEventListener("click", event => {
   bursty(event.pageX, event.pageY);
 });
 
@@ -329,19 +475,19 @@ function bursty(x, y) {
     degree: 360,
     children: {
       fill: { white: "#34E1FF" },
-      duration: 2000
-    }
-  }).tune({
+      duration: 2000 } }).
+
+  tune({
     x: x,
-    y: y
-  });
+    y: y });
+
 
   burst.replay();
 }
 
 function randomizedConfetti() {
-  let randomX = Math.floor(Math.random() * (document.body.clientWidth-100) + 0);
-  let randomY = Math.floor(Math.random() * (window.innerHeight-200) + 0);
+  let randomX = Math.floor(Math.random() * (document.body.clientWidth - 100) + 0);
+  let randomY = Math.floor(Math.random() * (window.innerHeight - 200) + 0);
   const burst = new mojs.Burst({
     left: 0,
     top: 0,
@@ -350,24 +496,23 @@ function randomizedConfetti() {
     degree: 360,
     children: {
       fill: { white: "#34E1FF" },
-      duration: 2000
-    }
-  }).tune({
+      duration: 2000 } }).
+
+  tune({
     x: randomX,
-    y: randomY
-  });
+    y: randomY });
+
 
   burst.replay();
 }
 
 Splitting();
-</pre></div>
-<script async src="https://public.codepenassets.com/embed/index.js"></script>
   
 </footer>
 
 </body>
 </html>
+
 
 
 
